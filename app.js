@@ -2,12 +2,17 @@ const cnv = document.querySelector('canvas')
 const c = cnv.getContext('2d')
 
 const infoBox = document.querySelector('#info')
+const fpsInfo = document.querySelector('#fps')
+const fsBtn = document.querySelector('#fullscreen')
+const hideBtn = document.querySelector('#hideBtn')
+
+const scaleFactor = 3
 
 
 function setCnvSize(scaleFactor) {
-  cnv.width = document.documentElement.clientWidth / scaleFactor
-  cnv.height = document.documentElement.clientHeight / scaleFactor
-  cnv.style.transform = `scale(${scaleFactor}, ${scaleFactor})`
+  cnv.width = document.documentElement.clientWidth / scaleFactor + scaleFactor
+  cnv.height = document.documentElement.clientHeight / scaleFactor + scaleFactor
+  cnv.style.transform = `scale(${scaleFactor})`
 }
 
 function getRandomInt(min, max) {
@@ -31,13 +36,44 @@ function tick(timestamp) {
   }
   c.putImageData(imgData, 0, 0)
 
-  infoBox.innerHTML = `FPS: ${Math.round(fps)}`
+  fpsInfo.innerHTML = `FPS: ${Math.round(fps)}`
 
   requestAnimationFrame(tick)
 }
 
 requestAnimationFrame(tick)
 
-setCnvSize(3)
+setCnvSize(scaleFactor)
 
-addEventListener('resize', () => setCnvSize(3))
+addEventListener('resize', () => setCnvSize(scaleFactor))
+
+function toggleCursor() {
+  cnv.style.cursor === 'none' ? cnv.style.cursor = 'auto' : cnv.style.cursor = 'none'
+}
+
+function togglePannel() {
+  infoBox.classList.toggle('hideInfo')
+  hideBtn.classList.toggle('hideBtnFade')
+  if (!hideBtn.classList.contains('hideBtnFade')) {
+    hideBtn.innerHTML = 'Hide'
+  } else {
+    hideBtn.innerHTML = 'Show'
+  }
+}
+
+let isFS = false
+function toggleFullscreen() {
+  if (!isFS) {
+    document.documentElement.requestFullscreen()
+    isFS = true
+  } else {
+    document.exitFullscreen()
+    isFS = false
+  }
+}
+
+cnv.addEventListener('dblclick', toggleCursor)
+
+hideBtn.addEventListener('click', togglePannel)
+
+fsBtn.addEventListener('click', toggleFullscreen)
