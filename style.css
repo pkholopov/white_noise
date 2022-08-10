@@ -63,3 +63,8 @@ canvas {
   color: red;
   font-size: large;
 }
+
+#scale_description {
+  font-size: 0.8rem;
+  color: gray;
+}

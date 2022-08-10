@@ -12,12 +12,15 @@
   <div id="info">
     <div id="fps">FPS</div>
     <br>
-    <p><i>Для скрытия или показа курсора мыши достаточно сделать двойной щелчёк на экране</i></p>
+    <p>Для скрытия или показа курсора мыши достаточно сделать двойной щелчок на экране</p>
     <br>
     <!-- <button id="sound">Включить/отключить звук</button> -->
+    <input type="number" name="scale" id="scale" min="1" max="5" value="3">
+    <p id="scale_description">В поле выше можно указать величину масштабирования от 1 до 5 (При малых значениях могут возникнуть проблемы с производительностью)</p>
+    <br>
     <button id="fullscreen">На весь экран</button>
     <button id="hideBtn">Hide</button>
-  </div> 
+  </div>
   <script src="app.js"></script>
 </body>
 </html>
